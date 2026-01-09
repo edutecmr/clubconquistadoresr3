@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club de Conquistadores - Región 3 MICOP</title>
+    <!-- Tailwind CSS (Framework de estilos) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins (Muy usado en Astra/Elementor) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        pathfinder: {
+                            red: '#BE1622',      /* Rojo oficial */
+                            blue: '#002664',     /* Azul oficial */
+                            yellow: '#F1C40F',   /* Amarillo */
+                            khaki: '#D8CFB6',    /* Caqui uniforme */
+                            dark: '#1F2937'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos personalizados para emular Elementor */
+        .elementor-section {
+            position: relative;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 38, 100, 0.7), rgba(190, 22, 34, 0.6));
+        }
+
+        .elementor-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .elementor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Triángulo Conquistador CSS puro para el logo si la imagen falla */
+        .triangle-logo {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 35px solid #BE1622;
+            position: relative;
+        }
+
+        /* Animación de entrada suave */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Divisor de forma estilo Elementor */
+        .shape-divider-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .shape-divider-bottom svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 70px;
+        }
+        .shape-divider-bottom .shape-fill {
+            fill: #FFFFFF;
+        }
+
+        /* Estilos para Galería */
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-overlay {
+            background: rgba(0, 38, 100, 0.6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-700 bg-white">
+
+    <!-- HEADER / NAVBAR (Estilo Astra Sticky) -->
+    <header id="site-header" class="fixed w-full top-0 z-50 transition-all duration-300 bg-transparent text-white py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Logo Area -->
+            <div class="flex items-center gap-3">
+                <div class="bg-white p-1 rounded-full shadow-md overflow-hidden">
+                    <img src="https://scontent.fpiu4-1.fna.fbcdn.net/v/t39.30808-6/306281360_466863378817216_8935981117798811442_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=_oHTmj-7sEIQ7kNvwEKE-Ui&_nc_oc=AdkY--87nUSpBQVlykXb-TjxQJAsIL1qwpnD6oGF2Al122cf5iSdUSYE6o-picqaB64&_nc_zt=23&_nc_ht=scontent.fpiu4-1.fna&_nc_gid=Up2eu_ZRnBC-lfxWJ7K6-g&oh=00_AfpVatpOU1U-PFpTS0m9iZgWzC8XtbAzb4hy0RSXpRWs0w&oe=6966F347" alt="Logo Región 3" class="w-10 h-10 object-cover rounded-full">
+                </div>
+                <div class="leading-tight">
+                    <h1 class="font-bold text-lg tracking-wide uppercase">Región 3</h1>
+                    <span class="text-xs font-light tracking-widest text-gray-200">MICOP</span>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex gap-8 font-medium text-sm uppercase tracking-wide">
+                <a href="#inicio" class="hover:text-pathfinder-yellow transition-colors">Inicio</a>
+                <a href="#nosotros" class="hover:text-pathfinder-yellow transition-colors">Nosotros</a>
+                <a href="#clubes" class="hover:text-pathfinder-yellow transition-colors">Clubes</a>
+                <a href="#eventos" class="hover:text-pathfinder-yellow transition-colors">Eventos</a>
+                <a href="#galeria" class="hover:text-pathfinder-yellow transition-colors">Galería</a>
+            </nav>
+
+            <!-- CTA Button -->
+            <div class="hidden md:block">
+                <a href="#contacto" class="bg-pathfinder-red hover:bg-red-800 text-white px-6 py-2 rounded font-semibold transition-colors shadow-lg border border-white/20">
+                    Únete Ahora
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white text-gray-800 shadow-xl border-t">
+            <div class="flex flex-col p-4 gap-4">
+                <a href="#inicio" class="block py-2 border-b border-gray-100 hover:text-pathfinder-red">Inicio</a>
+                <a href="#nosotros" class="block py-2 border-b border-gray-100 hover:text-pathfinder-red">Nosotros</a>
+                <a href="#clubes" class="block py-2 border-b border-gray-100 hover:text-pathfinder-red">Clubes</a>
+                <a href="#galeria" class="block py-2 border-b border-gray-100 hover:text-pathfinder-red">Galería</a>
+                <a href="#contacto" class="block py-2 font-bold text-pathfinder-red">Únete al Club</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (Estilo Elementor Hero) -->
+    <section id="inicio" class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Camping Conquistadores" class="w-full h-full object-cover">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 fade-in-up">
+            <span class="bg-pathfinder-yellow text-pathfinder-blue px-3 py-1 rounded text-xs font-bold uppercase tracking-widest mb-4 inline-block">Misión Centro Oeste del Perú</span>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                Salvar del Pecado y <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">Guiar en el Servicio</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
+                Bienvenido al portal oficial de la Región 3. Formamos líderes, servimos a la comunidad y compartimos la esperanza.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#clubes" class="bg-pathfinder-red hover:bg-red-800 text-white px-8 py-3 rounded text-lg font-semibold transition-all transform hover:scale-105 shadow-xl">
+                    Encontrar un Club
+                </a>
+                <a href="#nosotros" class="bg-transparent border-2 border-white hover:bg-white hover:text-pathfinder-blue text-white px-8 py-3 rounded text-lg font-semibold transition-all">
+                    Conocer Más
+                </a>
+            </div>
+        </div>
+
+        <!-- Elementor Shape Divider -->
+        <div class="shape-divider-bottom">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ICON BOXES (Características) -->
+    <section class="py-16 bg-white -mt-10 relative z-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Box 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg border-b-4 border-pathfinder-red text-center hover:shadow-xl transition-shadow elementor-card">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6 text-pathfinder-red text-2xl">
+                        <i class="fas fa-bible"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-pathfinder-blue">Espiritualidad</h3>
+                    <p class="text-gray-600 text-sm">Fomentamos el estudio de la Biblia y una relación personal con Dios como base de nuestra vida.</p>
+                </div>
+                <!-- Box 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg border-b-4 border-pathfinder-yellow text-center hover:shadow-xl transition-shadow elementor-card">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6 text-yellow-600 text-2xl">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-pathfinder-blue">Naturaleza</h3>
+                    <p class="text-gray-600 text-sm">Aprendemos a sobrevivir al aire libre, acampar y cuidar la creación de Dios.</p>
+                </div>
+                <!-- Box 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg border-b-4 border-pathfinder-blue text-center hover:shadow-xl transition-shadow elementor-card">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 text-pathfinder-blue text-2xl">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-pathfinder-blue">Servicio</h3>
+                    <p class="text-gray-600 text-sm">Somos manos ayudadoras en nuestra comunidad, siempre listos para servir al prójimo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="nosotros" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <div class="relative">
+                        <!-- Imagen con efecto decorativo de Elementor -->
+                        <div class="absolute -top-4 -left-4 w-24 h-24 bg-pathfinder-yellow rounded-tl-3xl z-0"></div>
+                        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-pathfinder-blue rounded-br-3xl z-0"></div>
+                        <img src="https://files.adventistas.org/noticias/es/2024/04/15174858/r2-2048x1365.jpeg" alt="Grupo Conquistadores" class="relative z-10 rounded-lg shadow-xl w-full">
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h4 class="text-pathfinder-red font-bold uppercase tracking-widest text-sm mb-2">Sobre Nosotros</h4>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 leading-tight">Somos la Región 3 de la <span class="text-pathfinder-blue">MICOP</span></h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        El Club de Conquistadores es un movimiento mundial organizado por la Iglesia Adventista del Séptimo Día. En la Misión Centro Oeste del Perú, la Región 3 destaca por su dinamismo y compromiso.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Trabajamos con niños y adolescentes de 10 a 15 años, desarrollando sus capacidades físicas, mentales y espirituales. Nuestras actividades incluyen campamentos, ferias, especialidades y servicio comunitario.
+                    </p>
+                    
+                    <div class="flex gap-4">
+                        <div class="border-l-4 border-pathfinder-red pl-4">
+                            <span class="block text-2xl font-bold text-gray-800">Voto</span>
+                            <span class="text-sm text-gray-600 italic">"Por la gracia de Dios, seré puro, bondadoso y leal..."</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS COUNTER SECTION (Elementor Counter Widget) -->
+    <section class="py-16 bg-pathfinder-blue text-white relative bg-fixed bg-cover" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-pathfinder-yellow mb-2 count-up" data-target="15">0</div>
+                    <div class="text-sm uppercase tracking-wide opacity-80">Clubes Activos</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-pathfinder-yellow mb-2 count-up" data-target="450">0</div>
+                    <div class="text-sm uppercase tracking-wide opacity-80">Conquistadores</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-pathfinder-yellow mb-2 count-up" data-target="85">0</div>
+                    <div class="text-sm uppercase tracking-wide opacity-80">Guías Mayores</div>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-bold text-pathfinder-yellow mb-2 count-up" data-target="12">0</div>
+                    <div class="text-sm uppercase tracking-wide opacity-80">Eventos Anuales</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLUBS SECTION (Elementor Posts Grid) -->
+    <section id="clubes" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-pathfinder-blue mb-4">Nuestros Clubes</h2>
+                <div class="w-20 h-1 bg-pathfinder-red mx-auto rounded"></div>
+                <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Encuentra el club más cercano a tu distrito dentro de la Región 3.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Club Card 1 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 elementor-card group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Club Orion" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-pathfinder-red text-white text-xs font-bold px-3 py-1 rounded-full">Distrito A</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-pathfinder-red transition-colors">Club Orión</h3>
+                        <p class="text-gray-600 text-sm mb-4">Reuniones: Domingos 9:00 AM. Un club enfocado en especialidades de naturaleza.</p>
+                        <a href="#" class="inline-flex items-center text-pathfinder-blue font-semibold hover:text-pathfinder-red transition-colors">
+                            Ver Ubicación <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Club Card 2 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 elementor-card group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Club Pléyades" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-pathfinder-red text-white text-xs font-bold px-3 py-1 rounded-full">Distrito B</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-pathfinder-red transition-colors">Club Pléyades</h3>
+                        <p class="text-gray-600 text-sm mb-4">Reuniones: Domingos 8:30 AM. Especialistas en marchas y orden cerrado.</p>
+                        <a href="#" class="inline-flex items-center text-pathfinder-blue font-semibold hover:text-pathfinder-red transition-colors">
+                            Ver Ubicación <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Club Card 3 -->
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 elementor-card group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1504280506508-fa668c621851?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Club Antares" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-pathfinder-red text-white text-xs font-bold px-3 py-1 rounded-full">Distrito C</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-pathfinder-red transition-colors">Club Antares</h3>
+                        <p class="text-gray-600 text-sm mb-4">Reuniones: Sábados 4:00 PM. Enfocados en servicio comunitario.</p>
+                        <a href="#" class="inline-flex items-center text-pathfinder-blue font-semibold hover:text-pathfinder-red transition-colors">
+                            Ver Ubicación <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA (NUEVA SECCIÓN) -->
+    <section id="galeria" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="text-pathfinder-red font-bold uppercase tracking-widest text-sm mb-2 block">Nuestros Recuerdos</span>
+                <h2 class="text-3xl font-bold text-pathfinder-blue">Galería de Actividades</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
+                <!-- Large item -->
+                <div class="col-span-2 row-span-2 gallery-item group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Camporee" class="w-full h-full object-cover">
+                    <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+                <!-- Standard items -->
+                <div class="gallery-item group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1504280506508-fa668c621851?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Marchas" class="w-full h-full object-cover">
+                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="gallery-item group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1534349762913-961d6905b948?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Estudio Bíblico" class="w-full h-full object-cover">
+                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="gallery-item group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Nudos" class="w-full h-full object-cover">
+                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+                <div class="gallery-item group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Fogata" class="w-full h-full object-cover">
+                     <div class="gallery-overlay absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#" class="inline-block border-2 border-pathfinder-blue text-pathfinder-blue font-bold py-2 px-6 rounded hover:bg-pathfinder-blue hover:text-white transition-colors">Ver Galería Completa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS (NUEVA SECCIÓN) -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-pathfinder-blue">Lo que dicen los padres</h2>
+                <div class="w-20 h-1 bg-pathfinder-yellow mx-auto rounded mt-4"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm border border-gray-100 relative">
+                    <i class="fas fa-quote-left text-4xl text-gray-200 absolute top-4 left-4"></i>
+                    <p class="text-gray-600 mb-6 relative z-10 italic">"Mi hijo ha aprendido disciplina y amor por Dios. El Club de Conquistadores ha sido la mejor inversión de tiempo para su adolescencia."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-pathfinder-khaki rounded-full flex items-center justify-center text-pathfinder-blue font-bold text-lg">MR</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">María Rojas</h4>
+                            <span class="text-xs text-gray-500">Madre de Conquistador</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm border border-gray-100 relative">
+                    <i class="fas fa-quote-left text-4xl text-gray-200 absolute top-4 left-4"></i>
+                    <p class="text-gray-600 mb-6 relative z-10 italic">"Las actividades al aire libre y los camporees son experiencias inolvidables. He hecho amigos para toda la vida aquí."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-pathfinder-red rounded-full flex items-center justify-center text-white font-bold text-lg">JC</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Juan Carlos</h4>
+                            <span class="text-xs text-gray-500">Guía Mayor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm border border-gray-100 relative md:hidden lg:block">
+                    <i class="fas fa-quote-left text-4xl text-gray-200 absolute top-4 left-4"></i>
+                    <p class="text-gray-600 mb-6 relative z-10 italic">"Es impresionante ver cómo se organizan y el liderazgo que desarrollan desde tan jóvenes en la Región 3."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-pathfinder-blue rounded-full flex items-center justify-center text-white font-bold text-lg">EP</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Eliana Pérez</h4>
+                            <span class="text-xs text-gray-500">Apoderada</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UPCOMING EVENTS (Lista Alternada) -->
+    <section id="eventos" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-pathfinder-blue">Próximos Eventos</h2>
+            </div>
+            
+            <div class="max-w-4xl mx-auto space-y-4">
+                <!-- Event Item -->
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row items-center gap-6 border-l-4 border-pathfinder-yellow hover:bg-gray-50 transition-colors">
+                    <div class="bg-gray-100 rounded-lg p-4 text-center min-w-[100px]">
+                        <span class="block text-3xl font-bold text-pathfinder-red">15</span>
+                        <span class="text-sm text-gray-600 font-semibold uppercase">Marzo</span>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <h3 class="text-xl font-bold text-gray-800">Apertura Regional</h3>
+                        <p class="text-gray-600 text-sm mt-1">Coliseo Cerrado - Inauguración de actividades 2024. Traer uniforme de gala.</p>
+                    </div>
+                    <a href="#" class="bg-pathfinder-blue text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-800 transition-colors">Detalles</a>
+                </div>
+
+                <!-- Event Item -->
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row items-center gap-6 border-l-4 border-pathfinder-red hover:bg-gray-50 transition-colors">
+                    <div class="bg-gray-100 rounded-lg p-4 text-center min-w-[100px]">
+                        <span class="block text-3xl font-bold text-pathfinder-red">22</span>
+                        <span class="text-sm text-gray-600 font-semibold uppercase">Mayo</span>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <h3 class="text-xl font-bold text-gray-800">Camporee de Guías Mayores</h3>
+                        <p class="text-gray-600 text-sm mt-1">Campamento Escuela - Entrenamiento de liderazgo avanzado.</p>
+                    </div>
+                    <a href="#" class="bg-pathfinder-blue text-white px-4 py-2 rounded text-sm font-medium hover:bg-blue-800 transition-colors">Detalles</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ (NUEVA SECCIÓN) -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl font-bold text-pathfinder-blue mb-10 text-center">Preguntas Frecuentes</h2>
+            
+            <div class="space-y-4">
+                <details class="group bg-gray-50 p-6 rounded-lg cursor-pointer">
+                    <summary class="flex justify-between items-center font-medium list-none text-gray-800 group-hover:text-pathfinder-red transition-colors">
+                        <span>¿A qué edad puede ingresar mi hijo?</span>
+                        <span class="transition group-open:rotate-180">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-4 text-sm leading-relaxed">
+                        El Club de Conquistadores admite niños y niñas desde los 10 hasta los 15 años de edad. Para niños más pequeños (6-9 años), existe el Club de Aventureros.
+                    </p>
+                </details>
+
+                <details class="group bg-gray-50 p-6 rounded-lg cursor-pointer">
+                    <summary class="flex justify-between items-center font-medium list-none text-gray-800 group-hover:text-pathfinder-red transition-colors">
+                        <span>¿Necesito ser miembro de la iglesia?</span>
+                        <span class="transition group-open:rotate-180">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-4 text-sm leading-relaxed">
+                        ¡No! El club está abierto a toda la comunidad, sin importar su trasfondo religioso. Todos son bienvenidos a participar de nuestras actividades.
+                    </p>
+                </details>
+
+                <details class="group bg-gray-50 p-6 rounded-lg cursor-pointer">
+                    <summary class="flex justify-between items-center font-medium list-none text-gray-800 group-hover:text-pathfinder-red transition-colors">
+                        <span>¿Cuál es el costo de inscripción?</span>
+                        <span class="transition group-open:rotate-180">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </summary>
+                    <p class="text-gray-600 mt-4 text-sm leading-relaxed">
+                        Cada club local maneja una cuota simbólica para cubrir seguro, materiales y parches. Te recomendamos contactar al club más cercano para detalles específicos.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION (Parallax Style) -->
+    <section id="contacto" class="py-24 relative text-white bg-fixed bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+        <div class="absolute inset-0 bg-pathfinder-blue opacity-80"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">¿Listo para la Aventura?</h2>
+            <p class="text-xl opacity-90 mb-8 max-w-2xl mx-auto">Únete a uno de nuestros clubes en la Región 3 MICOP y comienza a escribir tu historia.</p>
+            <a href="mailto:region3micop@ejemplo.com" class="bg-pathfinder-yellow text-pathfinder-blue px-8 py-4 rounded-full font-bold text-lg hover:bg-white transition-all shadow-xl inline-block">
+                Contactar al Regional
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER (Estilo Widget Footer) -->
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <!-- Col 1 -->
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wider">Región 3</h3>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Perteneciente a la Misión Centro Oeste del Perú. Formando jóvenes para la eternidad.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-8 h-8 rounded bg-gray-700 flex items-center justify-center hover:bg-pathfinder-red transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-8 h-8 rounded bg-gray-700 flex items-center justify-center hover:bg-pathfinder-red transition-colors"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 rounded bg-gray-700 flex items-center justify-center hover:bg-pathfinder-red transition-colors"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wider">Enlaces Útiles</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-pathfinder-yellow transition-colors">Manual Administrativo</a></li>
+                        <li><a href="#" class="hover:text-pathfinder-yellow transition-colors">Clases Progresivas</a></li>
+                        <li><a href="#" class="hover:text-pathfinder-yellow transition-colors">Especialidades</a></li>
+                        <li><a href="#" class="hover:text-pathfinder-yellow transition-colors">Descargas PDF</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wider">Contacto</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-pathfinder-red"></i>
+                            <span>Av. Ejemplo 123, <br>Lima, Perú</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-pathfinder-red"></i>
+                            <span>clubes@micop.org.pe</span>
+                        </li>
+                    </ul>
+                </div>
+                 <!-- Col 4 -->
+                 <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wider">Boletín</h3>
+                    <p class="text-sm mb-4">Suscríbete para recibir noticias de los eventos.</p>
+                    <form class="flex flex-col gap-2">
+                        <input type="email" placeholder="Tu correo" class="bg-gray-800 border-none p-2 rounded text-sm focus:ring-1 focus:ring-pathfinder-yellow text-white">
+                        <button class="bg-pathfinder-red text-white py-2 rounded text-sm font-bold hover:bg-red-800 transition-colors">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- COPYRIGHT & CREDITS -->
+            <div class="border-t border-gray-800 pt-8 text-sm flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <p>&copy; 2024 Club de Conquistadores Región 3 - MICOP. Todos los derechos reservados.</p>
+                <p class="text-gray-500">
+                    Desarrollado por <a href="https://subligrafin.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-pathfinder-yellow transition-colors font-semibold">SUBLIGRAFIN</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <a href="#inicio" id="scrollTopBtn" class="fixed bottom-6 right-6 bg-pathfinder-red text-white w-10 h-10 rounded shadow-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:bg-red-800 z-50">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Header Sticky Effect
+        const header = document.getElementById('site-header');
+        const scrollBtn = document.getElementById('scrollTopBtn');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.remove('bg-transparent', 'py-4');
+                header.classList.add('bg-pathfinder-blue', 'py-2', 'shadow-md');
+                scrollBtn.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                header.classList.add('bg-transparent', 'py-4');
+                header.classList.remove('bg-pathfinder-blue', 'py-2', 'shadow-md');
+                scrollBtn.classList.add('opacity-0', 'pointer-events-none');
+            }
+            
+            // Counters Animation check
+            animateCounters();
+        });
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Click outside to close menu
+        document.addEventListener('click', (e) => {
+            if (!header.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Smooth Scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                
+                // --- FIX: Evitar error con href="#" ---
+                if (!targetId || targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                
+                // Close menu if it's open (mobile)
+                mobileMenu.classList.add('hidden');
+
+                if (targetElement) {
+                     targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Counter Animation Logic
+        let counted = false;
+        function animateCounters() {
+            const statsSection = document.querySelector('.count-up');
+            if(!statsSection) return;
+            
+            const sectionPos = statsSection.getBoundingClientRect().top;
+            const screenPos = window.innerHeight / 1.3;
+
+            if (sectionPos < screenPos && !counted) {
+                const counters = document.querySelectorAll('.count-up');
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const speed = 200; // Lower is faster
+                    
+                    const updateCount = () => {
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 20);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+                counted = true;
+            }
+        }
+
+        // --- PROTECCIÓN DE CÓDIGO (Anti-Click Derecho y Atajos) ---
+        
+        // Deshabilitar clic derecho
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            // Opcional: Mostrar una alerta si intentan dar clic derecho
+            // alert('El contenido de esta página está protegido.');
+        });
+
+        // Deshabilitar atajos de teclado para inspeccionar (F12, Ctrl+U, Ctrl+Shift+I, etc.)
+        document.onkeydown = function(e) {
+            // F12
+            if(e.keyCode == 123) {
+                return false;
+            }
+            // Ctrl+Shift+I (Inspector)
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+                return false;
+            }
+            // Ctrl+Shift+J (Consola)
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+                return false;
+            }
+            // Ctrl+Shift+C (Inspector de elementos)
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)){
+                return false;
+            }
+            // Ctrl+U (Ver código fuente)
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+                return false;
+            }
+            // Ctrl+S (Guardar página)
+            if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
+                 return false;
+            }
+        }
+    </script>
+</body>
+</html>
